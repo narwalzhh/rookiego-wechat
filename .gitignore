@@ -1,0 +1,15 @@
+*.project
+*.classpath
+*settings/
+*.external*
+*.bin
+*target/
+*node_modules/
+*idea/
+*dist/
+*.war
+*.gitkeep
+*.idea/
+*.iml
+*overlays/
+
