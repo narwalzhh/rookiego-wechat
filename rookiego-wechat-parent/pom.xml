@@ -31,8 +31,7 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>rookiego-snapshots</id>
-			<name>rookiego-snapshots</name>
-			<url>http://101.200.50.159:8081/nexus/content/repositories/rookiego-snapshots/</url>
+			<url>http://101.200.50.159/nexus/content/repositories/rookiego-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
