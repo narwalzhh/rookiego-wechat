@@ -55,5 +55,7 @@
 	<modules>
 		<module>wechat</module>
 		<module>wechat-service</module>
+		<module>wechat-job</module>
+		<module>wechat-api</module>
 	</modules>
 </project>
