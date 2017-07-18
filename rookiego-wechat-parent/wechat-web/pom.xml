@@ -8,7 +8,7 @@
 		<artifactId>rookiego-wechat-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>wechat</artifactId>
+	<artifactId>wechat-web</artifactId>
 
 	<packaging>war</packaging>
 

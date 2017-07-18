@@ -53,7 +53,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<modules>
-		<module>wechat</module>
+		<module>wechat-web</module>
 		<module>wechat-service</module>
 		<module>wechat-job</module>
 		<module>wechat-api</module>
