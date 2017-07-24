@@ -1,61 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.rookiego</groupId>
-	<artifactId>rookiego-wechat-parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.rookiego</groupId>
+    <artifactId>rookiego-wechat-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
-	<properties>
-		<spring.version>4.3.9.RELEASE</spring.version>
+    <properties>
+        <spring.version>4.3.9.RELEASE</spring.version>
+        <mybatis-spring.version>1.3.1</mybatis-spring.version>
+        <tomcat-jdbc.version>8.0.32</tomcat-jdbc.version>
+        <mysql-connector.version>5.1.38</mysql-connector.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <fastjson.version>1.2.32</fastjson.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        <junit.version>4.12</junit.version>
+        <elastic.job.version>2.1.3</elastic.job.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
-		<tomcat-jdbc.version>8.0.32</tomcat-jdbc.version>
-		<mysql-connector.version>5.1.38</mysql-connector.version>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <encoding>utf-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
-		<servlet-api.version>3.1.0</servlet-api.version>
+    <!-- 不同环境配置文件过滤 -->
+    <profiles>
+        <profile>
+            <!-- 开发环境:默认 -->
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <deploy.env>dev</deploy.env>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 测试环境 -->
+            <id>test</id>
+            <properties>
+                <deploy.env>test</deploy.env>
+            </properties>
+        </profile>
+    </profiles>
 
-		<fastjson.version>1.2.32</fastjson.version>
-		<commons-lang3.version>3.3.2</commons-lang3.version>
-		<commons-collections4.version>4.1</commons-collections4.version>
+    <!-- 发布配置 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>rookiego-snapshots</id>
+            <url>http://101.200.50.159/nexus/content/repositories/rookiego-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-		<slf4j.version>1.7.25</slf4j.version>
-		<logback.version>1.2.3</logback.version>
-		<junit.version>4.12</junit.version>
-
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-						<encoding>utf-8</encoding>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-
-	<!-- 发布配置 -->
-	<distributionManagement>
-		<snapshotRepository>
-			<id>rookiego-snapshots</id>
-			<url>http://101.200.50.159/nexus/content/repositories/rookiego-snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
-	<modules>
-		<module>wechat-web</module>
-		<module>wechat-service</module>
-		<module>wechat-job</module>
-		<module>wechat-api</module>
-	</modules>
+    <modules>
+        <module>wechat-web</module>
+        <module>wechat-service</module>
+        <module>wechat-job</module>
+        <module>wechat-api</module>
+    </modules>
 </project>

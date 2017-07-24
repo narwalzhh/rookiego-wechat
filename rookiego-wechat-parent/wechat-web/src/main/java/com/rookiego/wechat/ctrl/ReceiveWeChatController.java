@@ -1,5 +1,6 @@
 package com.rookiego.wechat.ctrl;
 
+import com.rookiego.wechat.utils.Constant;
 import com.rookiego.wechat.utils.WeChatSHA1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * <b>类名称:</b>ReceiveWeChatController<br/>
@@ -27,8 +27,6 @@ public class ReceiveWeChatController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReceiveWeChatController.class);
 
-    private static final String TOKEN = "token";
-
     /**
      * @param httpServletRequest
      * @return java.lang.String
@@ -38,17 +36,24 @@ public class ReceiveWeChatController {
      */
     @ResponseBody
     @RequestMapping(value = "receiveWeChat", method = RequestMethod.GET)
-    public String validateWeChatMessage(HttpServletRequest httpServletRequest) throws Exception {
-        String signature = httpServletRequest.getParameter("signature");
-        String timestamp = httpServletRequest.getParameter("timestamp");
-        String nonce = httpServletRequest.getParameter("nonce");
-        String echostr = httpServletRequest.getParameter("echostr");
+    public String validateWeChatMessage(HttpServletRequest httpServletRequest) {
+        String signature = httpServletRequest.getParameter(Constant.WECHAT_PARAM_SIGNATURE);
+        String timestamp = httpServletRequest.getParameter(Constant.WECHAT_PARAM_TIMESTAMP);
+        String nonce = httpServletRequest.getParameter(Constant.WECHAT_PARAM_NONCE);
+        String echostr = httpServletRequest.getParameter(Constant.WECHAT_PARAM_ECHOSTR);
 
-        String securitySignature = WeChatSHA1.getSHA1(TOKEN, timestamp, nonce);
+        String securitySignature = null;
+
+        try {
+            securitySignature = WeChatSHA1.getSHA1(Constant.WECHAT_TOKEN_KEY, timestamp, nonce);
+        } catch (Exception e) {
+            LOGGER.info(String.format("%s--%s--%s", "ReceiveWeChatController.validateWeChatMessage", "getSHA1 happen exception", ""));
+            e.printStackTrace();
+        }
 
         LOGGER.info(String.format("%s--%s--%s", "ReceiveWeChatController.validateWeChatMessage", securitySignature, signature));
 
-        if (signature.equals(securitySignature)) {
+        if (securitySignature != null && signature.equals(securitySignature)) {
             return echostr;
         }
 

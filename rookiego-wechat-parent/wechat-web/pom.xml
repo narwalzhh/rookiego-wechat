@@ -46,7 +46,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>practice-wechat-web</finalName>
+		<finalName>wechat-web</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
